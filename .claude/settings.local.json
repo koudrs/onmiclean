@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(corepack --version)",
+      "Bash(npm install *)",
+      "Bash(pnpm --version)",
+      "Read(//home/ardoexe/.config/mise/**)",
+      "Bash(mise use *)",
+      "Bash(echo \"exit $?\")"
+    ]
+  }
+}
