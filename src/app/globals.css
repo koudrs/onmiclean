@@ -1,26 +1,193 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Omniclean Panamá — Design tokens
+   Paleta minimalista: blanco base, azul + verde (balance)
+   ============================================================ */
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0b1220;
+
+  /* Brand — azul */
+  --brand-blue: #2563eb;
+  --brand-blue-dark: #1d4ed8;
+  --brand-blue-light: #60a5fa;
+
+  /* Brand — verde */
+  --brand-green: #10b981;
+  --brand-green-dark: #059669;
+  --brand-green-light: #6ee7b7;
+
+  /* Neutrales fríos */
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --border: #e2e8f0;
+
+  /* WhatsApp */
+  --whatsapp: #25d366;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-dark: var(--brand-blue-dark);
+  --color-brand-blue-light: var(--brand-blue-light);
+
+  --color-brand-green: var(--brand-green);
+  --color-brand-green-dark: var(--brand-green-dark);
+  --color-brand-green-light: var(--brand-green-light);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-whatsapp: var(--whatsapp);
+
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.75rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Gradiente de marca reutilizable */
+.brand-gradient {
+  background-image: linear-gradient(
+    135deg,
+    var(--brand-blue) 0%,
+    var(--brand-green) 100%
+  );
+}
+
+.brand-gradient-text {
+  background-image: linear-gradient(
+    135deg,
+    var(--brand-blue) 0%,
+    var(--brand-green) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ============================================================
+   CTA de WhatsApp — botón verde llamativo que vende
+   ============================================================ */
+.cta-whatsapp::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  animation: cta-shine 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes cta-shine {
+  0%,
+  100% {
+    left: -75%;
+  }
+  35%,
+  65% {
+    left: 130%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-whatsapp::after {
+    animation: none;
+  }
+}
+
+/* Animaciones del Dialog (overlay y panel) basadas en data-state de Radix */
+@keyframes dialog-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes dialog-overlay-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes dialog-content-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@keyframes dialog-content-out {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+}
+.dialog-overlay[data-state="open"] {
+  animation: dialog-overlay-in 0.18s ease-out;
+}
+.dialog-overlay[data-state="closed"] {
+  animation: dialog-overlay-out 0.15s ease-in;
+}
+.dialog-content[data-state="open"] {
+  animation: dialog-content-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dialog-content[data-state="closed"] {
+  animation: dialog-content-out 0.15s ease-in;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dialog-overlay,
+  .dialog-content {
+    animation: none !important;
+  }
+}
+
+/* Scrollbar sutil */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-blue-light);
 }
