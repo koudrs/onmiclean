@@ -13,6 +13,7 @@ const links = [
   { href: "#productos", label: "Productos" },
   { href: "#paquete", label: "Paquete" },
   { href: "#beneficios", label: "Beneficios" },
+  { href: "#nosotros", label: "Nosotros" },
   { href: "#contacto", label: "Contacto" },
 ];
 
@@ -76,7 +77,7 @@ export function Navbar() {
           type="button"
           aria-label="Abrir menú"
           onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 items-center justify-center rounded-xl text-foreground hover:bg-muted md:hidden"
+          className="flex h-11 w-11 items-center justify-center rounded-xl text-foreground hover:bg-muted md:hidden"
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>

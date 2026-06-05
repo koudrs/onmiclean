@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Mail, MapPin } from "lucide-react";
 import { site, whatsappUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -12,7 +13,15 @@ const navLinks = [
   { href: "#productos", label: "Productos" },
   { href: "#paquete", label: "Paquete" },
   { href: "#beneficios", label: "Beneficios" },
+  { href: "#nosotros", label: "Nosotros" },
   { href: "#contacto", label: "Contacto" },
+];
+
+// Páginas legales (rutas reales del sitio).
+const legalLinks = [
+  { href: "/privacidad", label: "Privacidad" },
+  { href: "/terminos", label: "Términos" },
+  { href: "/cookies", label: "Cookies" },
 ];
 
 // Redes con su icono; se ocultan automáticamente las que sigan en "#".
@@ -115,7 +124,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   aria-label={label}
                   className={cn(
-                    "flex h-9 w-9 items-center justify-center rounded-full bg-white text-muted-foreground shadow-sm transition-colors",
+                    "flex h-11 w-11 items-center justify-center rounded-full bg-white text-muted-foreground shadow-sm transition-colors",
                     hoverClass,
                   )}
                 >
@@ -126,7 +135,20 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center gap-2 border-t border-border pt-6 text-center text-xs text-muted-foreground sm:flex-row sm:justify-between">
+        {/* Enlaces legales */}
+        <div className="mt-12 flex flex-wrap justify-center gap-x-6 gap-y-2 border-t border-border pt-6 text-xs sm:justify-start">
+          {legalLinks.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="text-muted-foreground transition-colors hover:text-brand-blue"
+            >
+              {l.label}
+            </Link>
+          ))}
+        </div>
+
+        <div className="mt-4 flex flex-col items-center gap-2 text-center text-xs text-muted-foreground sm:flex-row sm:justify-between">
           <p>
             © {year} {site.name}. Todos los derechos reservados.
           </p>

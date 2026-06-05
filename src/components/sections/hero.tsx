@@ -13,7 +13,7 @@ import { bundle, products } from "@/lib/products";
 // Mini-stats / señales de confianza mostradas bajo los CTA.
 const stats = [
   { icon: ShieldCheck, label: "99.9% gérmenes eliminados" },
-  { icon: Sparkles, label: `${products.length} productos esenciales` },
+  { icon: Sparkles, label: `${products.length} esenciales Omniclean` },
   { icon: Truck, label: "Pago contra entrega" },
 ];
 
@@ -70,7 +70,7 @@ export function Hero() {
       />
 
       {/* Contenido: CTA a la izquierda */}
-      <div className="relative mx-auto w-full max-w-6xl px-6 py-28 md:py-20">
+      <div className="relative mx-auto w-full max-w-6xl px-6 py-20 md:py-20">
         <motion.div
           variants={container}
           initial="hidden"
@@ -100,8 +100,8 @@ export function Hero() {
           </motion.p>
 
           {/* Precio destacado inline */}
-          <motion.div variants={item} className="flex items-end gap-3">
-            <span className="brand-gradient-text text-5xl font-extrabold leading-none">
+          <motion.div variants={item} className="flex flex-wrap items-end gap-3">
+            <span className="brand-gradient-text text-4xl font-extrabold leading-none sm:text-5xl">
               ${bundle.price}
             </span>
             <span className="pb-1 text-lg text-muted-foreground line-through">

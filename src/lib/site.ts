@@ -4,7 +4,6 @@
  */
 export const site = {
   name: "Omniclean Panamá",
-  shortName: "Omniclean",
   tagline: "Productos de limpieza para tu hogar",
   description:
     "Paquete especial de productos de limpieza para el hogar en Panamá. Calidad, frescura y rendimiento en un solo combo a un precio accesible.",
@@ -31,6 +30,18 @@ export const site = {
   developer: {
     name: "koudrs.com",
     url: "https://koudrs.com",
+  },
+
+  // Datos para las páginas legales (privacidad, términos, cookies).
+  legal: {
+    // Nombre/entidad a la que pertenece el sitio (nombre comercial).
+    entity: "Omniclean Panamá",
+    // Última actualización de los documentos legales (formato visible).
+    lastUpdated: "4 de junio de 2026",
+    // Cómo se gestionan pedidos y pagos (se refleja en los Términos).
+    orders: "por WhatsApp",
+    payments: ["Pago contra entrega", "Transferencia bancaria"] as string[],
+    deliveryArea: "Ciudad de Panamá",
   },
 } as const;
 

@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/ui/reveal";
 import { ProductCard } from "@/components/sections/product-card";
+import { ComingSoonCard } from "@/components/sections/coming-soon-card";
 import { products } from "@/lib/products";
 
 export function Products() {
@@ -10,14 +11,14 @@ export function Products() {
         {/* Encabezado de sección: badge + h2 + párrafo muted */}
         <Reveal className="mx-auto mb-14 max-w-2xl text-center">
           <Badge variant="blue" className="mb-4">
-            Nuestros productos
+            Productos Omniclean
           </Badge>
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Todo lo que tu hogar necesita
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Cinco esenciales de limpieza pensados para rendir más y cuidar cada
-            superficie de tu casa.
+            Cinco esenciales de limpieza Omniclean pensados para rendir más y
+            cuidar cada superficie de tu casa — y muy pronto, muchos más.
           </p>
         </Reveal>
 
@@ -33,6 +34,11 @@ export function Products() {
               <ProductCard product={product} />
             </Reveal>
           ))}
+
+          {/* 6º cuadro: teaser de "próximamente" para mostrar que el catálogo crece */}
+          <Reveal delayIndex={products.length} as="div" className="h-full">
+            <ComingSoonCard />
+          </Reveal>
         </div>
       </div>
     </section>

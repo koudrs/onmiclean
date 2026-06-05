@@ -89,7 +89,7 @@ export function BundleSection() {
                       damping: 16,
                       delay: 0.25,
                     }}
-                    className="absolute -right-2 -top-2 sm:right-2"
+                    className="absolute right-2 top-2 sm:-right-2 sm:-top-2"
                   >
                     <motion.span
                       animate={{ scale: [1, 1.06, 1] }}
@@ -114,7 +114,7 @@ export function BundleSection() {
                 <div>
                   {/* Bloque de precio con jerarquía reforzada */}
                   <div className="flex flex-wrap items-end gap-x-3 gap-y-1">
-                    <span className="brand-gradient-text text-6xl font-extrabold leading-none tracking-tight sm:text-7xl">
+                    <span className="brand-gradient-text text-5xl font-extrabold leading-none tracking-tight sm:text-6xl md:text-7xl">
                       ${bundle.price}
                     </span>
                     <span className="mb-1 text-2xl font-medium text-muted-foreground line-through">

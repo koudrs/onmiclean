@@ -187,7 +187,7 @@ export function Contact() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={label}
-                        className="flex size-10 items-center justify-center rounded-xl border border-border text-muted-foreground transition-colors hover:border-brand-blue hover:text-brand-blue"
+                        className="flex size-11 items-center justify-center rounded-xl border border-border text-muted-foreground transition-colors hover:border-brand-blue hover:text-brand-blue"
                       >
                         <Icon className="size-5" />
                       </a>

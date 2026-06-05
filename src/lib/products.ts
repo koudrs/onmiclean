@@ -20,7 +20,6 @@ export type Product = {
   id: string;
   name: string;
   shortDescription: string;
-  description: string;
   /** Descripción extendida para el detalle del producto */
   longDescription: string;
   /** Imagen importada (módulo estático con hash) */
@@ -42,8 +41,6 @@ export const products: Product[] = [
     id: "limpiador-pisos",
     name: "Limpiador de Pisos",
     shortDescription: "Pisos impecables con tecnología antimanchas.",
-    description:
-      "Limpia y desengrasa todo tipo de pisos con extracto cítrico natural. Deja un brillo duradero y un aroma Brisa Marina en cada rincón del hogar.",
     longDescription:
       "Nuestro Limpiador de Pisos multiusos combina la fuerza de su tecnología antimanchas con la suavidad de un extracto cítrico natural. Diluido en agua limpia y desengrasa cerámica, porcelanato, mármol y todo tipo de superficies, sin opacar ni dejar residuos pegajosos. Su fragancia Brisa Marina perdura por horas, dejando una sensación de frescura y limpieza profunda en toda la casa.",
     image: imgLimpiadorPisos,
@@ -64,8 +61,6 @@ export const products: Product[] = [
     id: "limpiavidrios",
     name: "Limpiavidrios",
     shortDescription: "Brillo sin rayas ni residuos.",
-    description:
-      "Acción rápida para vidrios, espejos y cristales. Con extracto cítrico y desengrasante natural: seca sin dejar rayas y devuelve la transparencia.",
     longDescription:
       "El Limpiavidrios Omniclean devuelve la transparencia total a ventanas, espejos, mamparas y todo tipo de cristales. Su fórmula con extracto cítrico y desengrasante natural disuelve la grasa, las huellas y el polvo al instante, secando rápido y sin dejar rayas ni residuos. Pulveriza, pasa un paño seco y disfruta de superficies impecables con un fresco aroma Brisa Marina.",
     image: imgLimpiavidrios,
@@ -86,8 +81,6 @@ export const products: Product[] = [
     id: "lavaplatos",
     name: "Lavaplatos Líquido",
     shortDescription: "Arranca la grasa con fragancia a limón.",
-    description:
-      "Corta la grasa al instante y rinde el doble. Fragancia a limón que deja tu vajilla impecable y cuida tus manos.",
     longDescription:
       "El Lavaplatos Líquido Omniclean es un arrancagrasa potente que corta la grasa más difícil al primer contacto y rinde el doble por su fórmula concentrada. Genera espuma abundante y duradera para lavar más platos con menos producto, mientras su fragancia a limón deja tu vajilla, ollas y cubiertos impecables y con un aroma fresco. Suave con tus manos en cada lavado.",
     image: imgLavaplatos,
@@ -108,8 +101,6 @@ export const products: Product[] = [
     id: "suavizante",
     name: "Suavizante Acondicionador de Telas",
     shortDescription: "Ropa suave con fragancia duradera.",
-    description:
-      "Suavizante acondicionador para tus telas con fragancia duradera. Deja tu ropa suave, perfumada y fácil de planchar lavado tras lavado.",
     longDescription:
       "El Suavizante Acondicionador de Telas Omniclean envuelve cada fibra para dejar tu ropa increíblemente suave, perfumada y fácil de planchar. Su fragancia duradera acompaña tus prendas por días, reduce la estática y el enredo, y cuida los colores y la forma de tu ropa lavado tras lavado. Empaque biodegradable, pensado para tu hogar y el planeta.",
     image: imgSuavizante,
@@ -130,8 +121,6 @@ export const products: Product[] = [
     id: "detergente",
     name: "Detergente Líquido para Ropa",
     shortDescription: "Limpieza profunda con enzimas efectivas.",
-    description:
-      "Detergente líquido con enzimas para una limpieza profunda y efectiva. Remueve las manchas difíciles y cuida los colores de tu ropa.",
     longDescription:
       "El Detergente Líquido para Ropa Omniclean penetra las fibras para una limpieza profunda desde el primer lavado. Su fórmula con enzimas efectivas remueve las manchas más difíciles —incluso en agua fría— sin dañar las telas ni desteñir los colores. Se disuelve por completo sin dejar residuos, cuida tu lavadora y deja tu ropa limpia, fresca y con una fragancia prolongada.",
     image: imgDetergente,

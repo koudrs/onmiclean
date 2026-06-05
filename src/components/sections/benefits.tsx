@@ -70,7 +70,7 @@ export function Benefits() {
             Por qué elegirnos
           </Badge>
           <h2 className="text-3xl font-bold tracking-tight text-brand-blue-dark sm:text-4xl">
-            Soluciones integrales para un mundo más limpio
+            Soluciones Omniclean para un mundo más limpio
           </h2>
           <p className="mt-4 text-muted-foreground">
             Detrás de cada producto Omniclean hay una promesa: eficiencia,
@@ -86,7 +86,7 @@ export function Benefits() {
             const isBlue = index % 2 === 0;
             return (
               <Reveal key={benefit.title} delayIndex={index}>
-                <article className="h-full rounded-3xl border border-border bg-white p-6 shadow-sm transition-shadow hover:shadow-md sm:p-8">
+                <article className="h-full rounded-3xl border border-border bg-white p-4 shadow-sm transition-shadow hover:shadow-md sm:p-6 lg:p-8">
                   <span
                     className={cn(
                       "flex size-12 items-center justify-center rounded-2xl",
