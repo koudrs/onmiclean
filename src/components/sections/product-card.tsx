@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Check, Droplet, Plus, Factory } from "lucide-react";
+import { Check, Droplet, Plus, Factory, Flower2, Layers } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -40,6 +40,90 @@ type ProductCardProps = {
 };
 
 /**
+ * Imagen de la card. Si el producto tiene `gallery` (varias variantes/aromas),
+ * rota las fotos automáticamente al hacer hover y muestra dots + un badge
+ * "N aromas" para que el cliente sepa que hay variedad sin abrir el detalle.
+ */
+function CardImage({ product }: { product: Product }) {
+  const gallery = product.gallery;
+  const hasGallery = !!gallery && gallery.length > 1;
+  const [index, setIndex] = useState(0);
+  const [hovering, setHovering] = useState(false);
+
+  // Rotación automática de la galería mientras el cursor está encima.
+  useEffect(() => {
+    if (!hasGallery || !hovering) return;
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % gallery!.length);
+    }, 900);
+    return () => clearInterval(id);
+  }, [hasGallery, hovering, gallery]);
+
+  const current = hasGallery ? gallery![index] : null;
+  const imageSrc = current?.image ?? product.image;
+  const imageAlt = current ? `${product.name} — ${current.label}` : product.name;
+
+  return (
+    <div
+      className="relative aspect-square w-full overflow-hidden bg-white"
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => {
+        setHovering(false);
+        setIndex(0);
+      }}
+    >
+      <Image
+        key={imageSrc.src}
+        src={imageSrc}
+        alt={imageAlt}
+        fill
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 22rem"
+        className="object-contain p-4 transition-transform duration-500 group-hover:scale-110 motion-safe:animate-[dialog-overlay-in_0.3s_ease-out]"
+      />
+
+      {/* Diferenciador de línea industrial */}
+      {product.category === "industrial" && (
+        <span className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-foreground/85 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white shadow-sm backdrop-blur">
+          <Factory className="size-3" />
+          Industrial
+        </span>
+      )}
+
+      {/* Badge de aromas: indica que hay varias variantes */}
+      {hasGallery && (
+        <span className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-brand-green/90 px-3 py-1 text-xs font-semibold text-white shadow-sm backdrop-blur">
+          <Flower2 className="size-3" />
+          {gallery!.length} aromas
+        </span>
+      )}
+
+      {/* Indicador de "ver más" que aparece en hover */}
+      <span className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-brand-blue-dark opacity-0 shadow-sm ring-1 ring-border backdrop-blur transition-opacity duration-300 group-hover:opacity-100">
+        <Plus className="size-3" />
+        Detalles
+      </span>
+
+      {/* Dots: posición de la variante activa dentro de la galería */}
+      {hasGallery && (
+        <span className="absolute inset-x-0 bottom-3 flex items-center justify-center gap-1.5">
+          {gallery!.map((variant, i) => (
+            <span
+              key={variant.label}
+              className={cn(
+                "h-1.5 rounded-full transition-all duration-300",
+                i === index
+                  ? "w-4 bg-brand-green"
+                  : "w-1.5 bg-foreground/20",
+              )}
+            />
+          ))}
+        </span>
+      )}
+    </div>
+  );
+}
+
+/**
  * Card de producto. Al hacer click en cualquier parte del card (excepto el
  * botón de WhatsApp) se abre el detalle: Drawer en mobile, Dialog en desktop.
  */
@@ -67,28 +151,8 @@ export function ProductCard({ product }: ProductCardProps) {
           accentHoverBorder[product.accent],
         )}
       >
-        {/* Imagen del producto (foto en fondo blanco) centrada */}
-        <div className="relative aspect-square w-full overflow-hidden bg-white">
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 22rem"
-            className="object-contain p-4 transition-transform duration-500 group-hover:scale-110"
-          />
-          {/* Diferenciador de línea industrial */}
-          {product.category === "industrial" && (
-            <span className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-foreground/85 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white shadow-sm backdrop-blur">
-              <Factory className="size-3" />
-              Industrial
-            </span>
-          )}
-          {/* Indicador de "ver más" que aparece en hover */}
-          <span className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-brand-blue-dark opacity-0 shadow-sm ring-1 ring-border backdrop-blur transition-opacity duration-300 group-hover:opacity-100">
-            <Plus className="size-3" />
-            Detalles
-          </span>
-        </div>
+        {/* Imagen del producto con mini-galería de variantes (aromas) */}
+        <CardImage product={product} />
 
         <div className="flex flex-1 flex-col gap-4 p-6">
           <div>
@@ -97,7 +161,12 @@ export function ProductCard({ product }: ProductCardProps) {
                 {product.name}
               </h3>
               <Badge variant="neutral" className="shrink-0">
-                {product.size}
+                <span>
+                  {product.size}
+                  {product.multiSize && (
+                    <span className="text-muted-foreground/70"> +</span>
+                  )}
+                </span>
               </Badge>
             </div>
             <p className="mt-1 text-sm text-muted-foreground">
@@ -155,14 +224,20 @@ function ProductDetail({ product }: { product: Product }) {
   const Title = isDesktop ? DialogTitle : DrawerTitle;
   const Description = isDesktop ? DialogDescription : DrawerDescription;
 
+  // Variante activa de la mini-galería (aromas). Por defecto la principal.
+  const [activeVariant, setActiveVariant] = useState(0);
+  const gallery = product.gallery;
+  const activeImage = gallery?.[activeVariant]?.image ?? product.image;
+  const activeLabel = gallery?.[activeVariant]?.label;
+
   return (
     <>
       {/* Cabecera: imagen sobre fondo claro con badge de tamaño */}
       <div className="relative bg-gradient-to-b from-muted/60 to-white p-6 pt-10">
         <div className="relative mx-auto aspect-square w-full max-w-[14rem] overflow-hidden rounded-2xl bg-white sm:max-w-[16rem]">
           <Image
-            src={product.image}
-            alt={product.name}
+            src={activeImage}
+            alt={activeLabel ? `${product.name} — ${activeLabel}` : product.name}
             fill
             sizes="(max-width: 640px) 70vw, 16rem"
             className="object-contain p-4"
@@ -177,6 +252,45 @@ function ProductDetail({ product }: { product: Product }) {
             )}
           </span>
         </div>
+
+        {/* Mini-galería de aromas: thumbnails clicables */}
+        {gallery && gallery.length > 1 && (
+          <div className="mx-auto mt-4 flex max-w-[18rem] flex-wrap items-center justify-center gap-2">
+            {gallery.map((variant, i) => {
+              const isActive = i === activeVariant;
+              return (
+                <button
+                  key={variant.label}
+                  type="button"
+                  onClick={() => setActiveVariant(i)}
+                  aria-label={`Ver aroma ${variant.label}`}
+                  aria-pressed={isActive}
+                  title={variant.label}
+                  className={cn(
+                    "relative size-12 shrink-0 overflow-hidden rounded-xl border bg-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40",
+                    isActive
+                      ? "border-brand-blue ring-2 ring-brand-blue/30"
+                      : "border-border opacity-70 hover:opacity-100",
+                  )}
+                >
+                  <Image
+                    src={variant.image}
+                    alt={variant.label}
+                    fill
+                    sizes="48px"
+                    className="object-contain p-1"
+                  />
+                </button>
+              );
+            })}
+          </div>
+        )}
+        {/* Etiqueta del aroma activo */}
+        {activeLabel && gallery && gallery.length > 1 && (
+          <p className="mt-2 text-center text-sm font-medium text-foreground">
+            Aroma: <span className="text-brand-blue-dark">{activeLabel}</span>
+          </p>
+        )}
       </div>
 
       <div className="flex flex-col gap-6 p-6 pb-8 pt-2">
@@ -206,6 +320,23 @@ function ProductDetail({ product }: { product: Product }) {
           ))}
         </ul>
 
+        {/* Bloque de aromas (solo si NO hay mini-galería que ya los muestre) */}
+        {product.scents && product.scents.length > 0 && !product.gallery && (
+          <div className="rounded-2xl border border-border bg-muted/50 p-4">
+            <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+              <Flower2 className="size-4 text-brand-green" />
+              Aromas disponibles
+            </div>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {product.scents.map((scent) => (
+                <li key={scent}>
+                  <Badge variant="green">{scent}</Badge>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         {/* Bloque "Modo de uso" */}
         <div className="rounded-2xl border border-border bg-muted/50 p-4">
           <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
@@ -214,6 +345,14 @@ function ProductDetail({ product }: { product: Product }) {
           </div>
           <p className="mt-2 text-sm text-muted-foreground">{product.usage}</p>
         </div>
+
+        {/* Nota sutil: disponible en varios tamaños */}
+        {product.multiSize && (
+          <p className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
+            <Layers className="size-3.5" />
+            Disponible en varios tamaños · consúltanos por WhatsApp
+          </p>
+        )}
 
         {/* CTA grande a WhatsApp */}
         <Button asChild variant="whatsapp" size="lg" className="w-full">

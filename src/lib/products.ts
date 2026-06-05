@@ -19,6 +19,12 @@ import imgAlkaFoam from "@/assets/products/alka-foam.webp";
 import imgBiocleanerAlka from "@/assets/products/biocleaner-alka.webp";
 import imgQuatCleaner from "@/assets/products/quat-cleaner.webp";
 
+// Aromas del Limpiador de Pisos (la imagen principal es Brisa Marina).
+import imgPisosLavanda from "@/assets/products/lavanda.webp";
+import imgPisosBaby from "@/assets/products/baby.webp";
+import imgPisosPino from "@/assets/products/pino.webp";
+import imgPisosNaranja from "@/assets/products/naranja.webp";
+
 /** Línea a la que pertenece el producto. */
 export type ProductCategory = "hogar" | "industrial";
 
@@ -42,6 +48,16 @@ export type Product = {
   features: string[];
   /** Sugerencia de uso */
   usage: string;
+  /** Aromas disponibles (si el producto se ofrece en varias fragancias) */
+  scents?: string[];
+  /** True si el producto viene en varias presentaciones/tamaños */
+  multiSize?: boolean;
+  /**
+   * Mini-galería de variantes (ej. aromas). La imagen principal (`image`) es
+   * la variante destacada; estas son las adicionales que se muestran como
+   * thumbnails en el detalle del producto.
+   */
+  gallery?: { image: StaticImageData; label: string }[];
 };
 
 export const products: Product[] = [
@@ -51,16 +67,25 @@ export const products: Product[] = [
     category: "hogar",
     shortDescription: "Pisos impecables con tecnología antimanchas.",
     longDescription:
-      "Nuestro Limpiador de Pisos multiusos combina la fuerza de su tecnología antimanchas con la suavidad de un extracto cítrico natural. Diluido en agua limpia y desengrasa cerámica, porcelanato, mármol y todo tipo de superficies, sin opacar ni dejar residuos pegajosos. Su fragancia Brisa Marina perdura por horas, dejando una sensación de frescura y limpieza profunda en toda la casa.",
+      "Nuestro Limpiador de Pisos multiusos combina la fuerza de su tecnología antimanchas con la suavidad de un extracto cítrico natural. Diluido en agua limpia y desengrasa cerámica, porcelanato, mármol y todo tipo de superficies, sin opacar ni dejar residuos pegajosos. Disponible en cinco aromas —Lavanda, Brisa Marina, Baby, Pino y Naranja— para que elijas tu favorito y tu casa quede con frescura y limpieza profunda por horas.",
     image: imgLimpiadorPisos,
     accent: "blue",
     size: "883 ml",
-    highlights: ["Tecnología antimanchas", "Extracto cítrico", "Brisa Marina"],
+    multiSize: true,
+    scents: ["Brisa Marina", "Lavanda", "Baby", "Pino", "Naranja"],
+    gallery: [
+      { image: imgLimpiadorPisos, label: "Brisa Marina" },
+      { image: imgPisosLavanda, label: "Lavanda" },
+      { image: imgPisosBaby, label: "Baby" },
+      { image: imgPisosPino, label: "Pino" },
+      { image: imgPisosNaranja, label: "Naranja" },
+    ],
+    highlights: ["Tecnología antimanchas", "Extracto cítrico", "5 aromas"],
     features: [
       "Apto para cerámica, porcelanato, mármol y más",
       "Tecnología antimanchas para una limpieza profunda",
       "Extracto cítrico desengrasante de origen natural",
-      "Fragancia Brisa Marina de larga duración",
+      "Disponible en 5 aromas: Lavanda, Brisa Marina, Baby, Pino y Naranja",
       "Fórmula biodegradable y segura para tu hogar",
     ],
     usage:
@@ -76,6 +101,7 @@ export const products: Product[] = [
     image: imgLimpiavidrios,
     accent: "green",
     size: "500 ml",
+    multiSize: true,
     highlights: ["Sin rayas", "Secado rápido", "Brisa Marina"],
     features: [
       "Ideal para vidrios, espejos, mamparas y cristales",
@@ -97,6 +123,7 @@ export const products: Product[] = [
     image: imgLavaplatos,
     accent: "green",
     size: "710 ml",
+    multiSize: true,
     highlights: ["Arrancagrasa", "Fragancia limón", "Alto rendimiento"],
     features: [
       "Corta la grasa más difícil al instante",
@@ -118,6 +145,7 @@ export const products: Product[] = [
     image: imgSuavizante,
     accent: "blue",
     size: "1800 ml",
+    multiSize: true,
     highlights: ["Fragancia duradera", "Telas suaves", "Fácil planchado"],
     features: [
       "Suaviza y acondiciona todo tipo de telas",
@@ -139,6 +167,7 @@ export const products: Product[] = [
     image: imgDetergente,
     accent: "green",
     size: "1800 ml",
+    multiSize: true,
     highlights: ["Con enzimas", "Quita manchas", "Cuida colores"],
     features: [
       "Enzimas que remueven las manchas más difíciles",
@@ -260,12 +289,21 @@ export const bundle: Bundle = {
 
 /** Mensaje de WhatsApp específico para un producto, con su detalle. */
 export function productWhatsappUrl(product: Product) {
+  const extras: string[] = [];
+  if (product.scents?.length) {
+    extras.push(`🌸 Aromas: ${product.scents.join(", ")}`);
+  }
+  if (product.multiSize) {
+    extras.push(`📦 Disponible en varios tamaños`);
+  }
+
   const message = [
     `¡Hola Omniclean! 👋`,
     ``,
     `Me interesa este producto:`,
     `🧴 *${product.name}*`,
     `${product.shortDescription}`,
+    ...(extras.length ? ["", ...extras] : []),
     ``,
     `¿Me das precio y disponibilidad?`,
   ].join("\n");
