@@ -15,10 +15,18 @@ import imgLavaplatos from "@/assets/products/lavaplatos.webp";
 import imgSuavizante from "@/assets/products/suavizante.webp";
 import imgDetergente from "@/assets/products/detergente.webp";
 import imgComboPack from "@/assets/products/combo-pack.webp";
+import imgAlkaFoam from "@/assets/products/alka-foam.webp";
+import imgBiocleanerAlka from "@/assets/products/biocleaner-alka.webp";
+import imgQuatCleaner from "@/assets/products/quat-cleaner.webp";
+
+/** Línea a la que pertenece el producto. */
+export type ProductCategory = "hogar" | "industrial";
 
 export type Product = {
   id: string;
   name: string;
+  /** Línea: hogar (entra en el combo) o industrial (independiente) */
+  category: ProductCategory;
   shortDescription: string;
   /** Descripción extendida para el detalle del producto */
   longDescription: string;
@@ -40,6 +48,7 @@ export const products: Product[] = [
   {
     id: "limpiador-pisos",
     name: "Limpiador de Pisos",
+    category: "hogar",
     shortDescription: "Pisos impecables con tecnología antimanchas.",
     longDescription:
       "Nuestro Limpiador de Pisos multiusos combina la fuerza de su tecnología antimanchas con la suavidad de un extracto cítrico natural. Diluido en agua limpia y desengrasa cerámica, porcelanato, mármol y todo tipo de superficies, sin opacar ni dejar residuos pegajosos. Su fragancia Brisa Marina perdura por horas, dejando una sensación de frescura y limpieza profunda en toda la casa.",
@@ -60,6 +69,7 @@ export const products: Product[] = [
   {
     id: "limpiavidrios",
     name: "Limpiavidrios",
+    category: "hogar",
     shortDescription: "Brillo sin rayas ni residuos.",
     longDescription:
       "El Limpiavidrios Omniclean devuelve la transparencia total a ventanas, espejos, mamparas y todo tipo de cristales. Su fórmula con extracto cítrico y desengrasante natural disuelve la grasa, las huellas y el polvo al instante, secando rápido y sin dejar rayas ni residuos. Pulveriza, pasa un paño seco y disfruta de superficies impecables con un fresco aroma Brisa Marina.",
@@ -80,6 +90,7 @@ export const products: Product[] = [
   {
     id: "lavaplatos",
     name: "Lavaplatos Líquido",
+    category: "hogar",
     shortDescription: "Arranca la grasa con fragancia a limón.",
     longDescription:
       "El Lavaplatos Líquido Omniclean es un arrancagrasa potente que corta la grasa más difícil al primer contacto y rinde el doble por su fórmula concentrada. Genera espuma abundante y duradera para lavar más platos con menos producto, mientras su fragancia a limón deja tu vajilla, ollas y cubiertos impecables y con un aroma fresco. Suave con tus manos en cada lavado.",
@@ -100,6 +111,7 @@ export const products: Product[] = [
   {
     id: "suavizante",
     name: "Suavizante Acondicionador de Telas",
+    category: "hogar",
     shortDescription: "Ropa suave con fragancia duradera.",
     longDescription:
       "El Suavizante Acondicionador de Telas Omniclean envuelve cada fibra para dejar tu ropa increíblemente suave, perfumada y fácil de planchar. Su fragancia duradera acompaña tus prendas por días, reduce la estática y el enredo, y cuida los colores y la forma de tu ropa lavado tras lavado. Empaque biodegradable, pensado para tu hogar y el planeta.",
@@ -120,6 +132,7 @@ export const products: Product[] = [
   {
     id: "detergente",
     name: "Detergente Líquido para Ropa",
+    category: "hogar",
     shortDescription: "Limpieza profunda con enzimas efectivas.",
     longDescription:
       "El Detergente Líquido para Ropa Omniclean penetra las fibras para una limpieza profunda desde el primer lavado. Su fórmula con enzimas efectivas remueve las manchas más difíciles —incluso en agua fría— sin dañar las telas ni desteñir los colores. Se disuelve por completo sin dejar residuos, cuida tu lavadora y deja tu ropa limpia, fresca y con una fragancia prolongada.",
@@ -137,7 +150,82 @@ export const products: Product[] = [
     usage:
       "Dosifica según la carga y el nivel de suciedad. Apto para lavado a mano y en lavadora.",
   },
+  // ─── Línea industrial (independiente, NO entra en el combo de hogar) ───
+  {
+    id: "alka-foam",
+    name: "Alka-Foam",
+    category: "industrial",
+    shortDescription:
+      "Desengrasante alcalino espumante para plantas de alimentos.",
+    longDescription:
+      "Alka-Foam es un desengrasante alcalino de uso industrial que genera una espuma limpiadora de alta adherencia. Saponifica las grasas y facilita la remoción de residuos en equipos y superficies de plantas procesadoras de alimentos. Su fórmula rinde incluso en aguas duras, evita la redeposición de sólidos y combina un tensoactivo biodegradable con poder desinfectante para una limpieza diaria profunda y segura.",
+    image: imgAlkaFoam,
+    accent: "blue",
+    size: "Galón",
+    highlights: ["Espuma de contacto", "Alto rendimiento", "Plantas de alimentos"],
+    features: [
+      "Saponifica grasas y arranca residuos difíciles",
+      "Genera espuma de alta adherencia y contacto prolongado",
+      "Eficaz en aguas duras, sin redeposición de sólidos",
+      "Tensoactivo biodegradable con poder desinfectante",
+      "Ideal para limpieza diaria de equipos y superficies",
+    ],
+    usage:
+      "Diluir según el grado de suciedad, aplicar con equipo espumante, dejar actuar y enjuagar con abundante agua. Uso profesional.",
+  },
+  {
+    id: "biocleaner-alka",
+    name: "Biocleaner Alka",
+    category: "industrial",
+    shortDescription:
+      "Desengrasante alcalino concentrado para limpieza extrema.",
+    longDescription:
+      "Biocleaner Alka es un desengrasante alcalino concentrado y biodegradable, formulado con agentes de alta sinergia para remover grasas animales y vegetales en condiciones de limpieza extrema. Es la solución para plantas cárnicas y lácteas que exigen el máximo desempeño sobre equipos de acero, aluminio o plástico, cuidando los materiales y cumpliendo los estándares de inocuidad alimentaria.",
+    image: imgBiocleanerAlka,
+    accent: "green",
+    size: "Galón",
+    highlights: ["Limpieza extrema", "Biodegradable", "Cárnicas y lácteas"],
+    features: [
+      "Remueve grasas animales y vegetales difíciles",
+      "Concentrado de alta sinergia desengrasante",
+      "Biodegradable y compatible con acero, aluminio y plástico",
+      "Diseñado para plantas cárnicas y lácteas",
+      "Excelente desempeño en limpieza profunda industrial",
+    ],
+    usage:
+      "Diluir según la intensidad de la grasa a remover, aplicar sobre la superficie, dejar actuar y enjuagar. Uso profesional.",
+  },
+  {
+    id: "quat-cleaner",
+    name: "Quat Cleaner",
+    category: "industrial",
+    shortDescription:
+      "Sanitizante de amplio espectro para superficies y áreas productivas.",
+    longDescription:
+      "Quat Cleaner es un sanitizante desinfectante elaborado con amonios cuaternarios de quinta generación, con un espectro de acción microbicida muy amplio: actúa sobre bacterias, hongos, levaduras y virus. Está pensado para la desinfección de áreas, maquinaria, vehículos de transporte, charcas sanitarias, pisos, paredes y ambientes en plantas de alimentos, funcionando sobre toda clase de materiales.",
+    image: imgQuatCleaner,
+    accent: "blue",
+    size: "Galón",
+    highlights: ["Amplio espectro", "Amonio cuaternario", "Sanitiza áreas"],
+    features: [
+      "Amonios cuaternarios de quinta generación",
+      "Actúa sobre bacterias, hongos, levaduras y virus",
+      "Para áreas, maquinaria, vehículos, pisos y paredes",
+      "Efectivo en charcas sanitarias y ambientes productivos",
+      "Compatible con toda clase de materiales",
+    ],
+    usage:
+      "Diluir en agua según la concentración requerida, aplicar sobre superficies limpias y dejar actuar el tiempo de contacto indicado. Uso profesional.",
+  },
 ];
+
+/** Productos de la línea hogar (los que entran en el combo). */
+export const homeProducts = products.filter((p) => p.category === "hogar");
+
+/** Productos de la línea industrial (se venden independientes). */
+export const industrialProducts = products.filter(
+  (p) => p.category === "industrial",
+);
 
 export type Bundle = {
   name: string;
@@ -160,7 +248,8 @@ export const bundle: Bundle = {
   description:
     "Limpieza completa para tu hogar en un solo combo. 5 productos esenciales para que tengas eficiencia, frescura y brillo en cada espacio, a un precio que ahorra de verdad.",
   image: imgComboPack,
-  includes: products.map((p) => `${p.name} · ${p.size}`),
+  // El combo solo agrupa los 5 productos de la línea hogar.
+  includes: homeProducts.map((p) => `${p.name} · ${p.size}`),
   perks: [
     "Ahorra más de $12 vs. comprarlos por separado",
     "Fórmulas efectivas y biodegradables",

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Check, Droplet, Plus } from "lucide-react";
+import { Check, Droplet, Plus, Factory } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -76,6 +76,13 @@ export function ProductCard({ product }: ProductCardProps) {
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 22rem"
             className="object-contain p-4 transition-transform duration-500 group-hover:scale-110"
           />
+          {/* Diferenciador de línea industrial */}
+          {product.category === "industrial" && (
+            <span className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-foreground/85 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white shadow-sm backdrop-blur">
+              <Factory className="size-3" />
+              Industrial
+            </span>
+          )}
           {/* Indicador de "ver más" que aparece en hover */}
           <span className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-brand-blue-dark opacity-0 shadow-sm ring-1 ring-border backdrop-blur transition-opacity duration-300 group-hover:opacity-100">
             <Plus className="size-3" />
@@ -160,8 +167,14 @@ function ProductDetail({ product }: { product: Product }) {
             sizes="(max-width: 640px) 70vw, 16rem"
             className="object-contain p-4"
           />
-          <span className="absolute left-3 top-3">
+          <span className="absolute left-3 top-3 flex flex-wrap gap-2">
             <Badge variant={product.accent}>{product.size}</Badge>
+            {product.category === "industrial" && (
+              <Badge className="bg-foreground/85 uppercase tracking-wide text-white">
+                <Factory className="size-3" />
+                Industrial
+              </Badge>
+            )}
           </span>
         </div>
       </div>

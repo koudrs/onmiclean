@@ -51,10 +51,12 @@ export function About() {
             </p>
             <p className="mt-4 text-muted-foreground">
               Hoy ofrecemos el <strong>Combo Omniclean</strong> con cinco
-              productos para todo el hogar, y esto apenas comienza: estamos
-              creciendo y muy pronto sumaremos más productos a la familia
-              Omniclean. Operamos en {site.legal.deliveryArea} con atención
-              cercana y directa por WhatsApp.
+              productos para todo el hogar y, además, una{" "}
+              <strong>línea industrial</strong> de limpieza y desinfección
+              especializada en plantas de alimentos. Y esto apenas comienza:
+              seguimos creciendo y sumando soluciones a la familia Omniclean.
+              Operamos en {site.legal.deliveryArea} con atención cercana y
+              directa por WhatsApp.
             </p>
           </Reveal>
 

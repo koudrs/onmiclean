@@ -2,20 +2,13 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import { ShieldCheck, Sparkles, Truck, ArrowRight } from "lucide-react";
+import { Sparkles, ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { WhatsappIcon } from "@/components/ui/brand-icons";
 import { whatsappUrl } from "@/lib/site";
-import { bundle, products } from "@/lib/products";
-
-// Mini-stats / señales de confianza mostradas bajo los CTA.
-const stats = [
-  { icon: ShieldCheck, label: "99.9% gérmenes eliminados" },
-  { icon: Sparkles, label: `${products.length} esenciales Omniclean` },
-  { icon: Truck, label: "Pago contra entrega" },
-];
+import { bundle } from "@/lib/products";
 
 // Variantes de entrada escalonada para el bloque de texto.
 const container = {
@@ -120,28 +113,12 @@ export function Hero() {
               </a>
             </Button>
             <Button asChild variant="outline" size="lg">
-              <a href="#paquete">
-                Ver el paquete
+              <a href="#productos">
+                Ver productos
                 <ArrowRight />
               </a>
             </Button>
           </motion.div>
-
-          {/* Fila de mini-stats / trust signals */}
-          <motion.ul
-            variants={item}
-            className="mt-2 flex flex-wrap gap-x-6 gap-y-3"
-          >
-            {stats.map(({ icon: Icon, label }) => (
-              <li
-                key={label}
-                className="flex items-center gap-2 text-sm font-medium text-muted-foreground"
-              >
-                <Icon className="size-4 text-brand-green" />
-                {label}
-              </li>
-            ))}
-          </motion.ul>
         </motion.div>
       </div>
 
