@@ -15,7 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { WhatsappIcon } from "@/components/ui/brand-icons";
-import { bundle, bundleWhatsappUrl } from "@/lib/products";
+import { bundle, bundleWhatsappUrl, TAX_NOTE } from "@/lib/products";
 
 // Trust signals: micro-garantías cerca del CTA para dar confianza.
 const trustSignals = [
@@ -124,6 +124,10 @@ export function BundleSection() {
                     <span className="mb-1.5 inline-flex items-center rounded-full bg-brand-green/15 px-2.5 py-1 text-sm font-extrabold text-brand-green-dark">
                       -{discountPct}%
                     </span>
+                    {/* Nota de impuesto: los precios no incluyen ITBMS */}
+                    <span className="mb-1.5 text-sm font-semibold text-muted-foreground">
+                      {TAX_NOTE}
+                    </span>
                   </div>
                   <p className="mt-2 text-sm font-medium text-muted-foreground">
                     Ahorras ${savings} frente a comprarlos por separado
@@ -179,7 +183,7 @@ export function BundleSection() {
                   </Button>
                   {/* Reaseguro bajo el CTA */}
                   <p className="mt-2.5 text-center text-xs text-muted-foreground">
-                    Respuesta inmediata · Sin compromiso
+                    Respuesta inmediata · Sin compromiso · Precio {TAX_NOTE}
                   </p>
 
                   {/* Fila de trust signals / mini-garantías */}

@@ -256,6 +256,15 @@ export const industrialProducts = products.filter(
   (p) => p.category === "industrial",
 );
 
+/**
+ * ITBMS (Impuesto sobre la Transferencia de bienes Muebles y Servicios) de
+ * Panamá. TODOS los precios mostrados en el sitio son SIN impuesto: se les
+ * suma el ITBMS. Usar `TAX_NOTE` junto a cualquier precio visible.
+ */
+export const TAX_RATE = 0.07;
+/** Etiqueta corta para mostrar junto a los precios (ej. "$20 + ITBMS"). */
+export const TAX_NOTE = "+ ITBMS (7%)";
+
 export type Bundle = {
   name: string;
   price: number;
@@ -305,7 +314,7 @@ export function productWhatsappUrl(product: Product) {
     `${product.shortDescription}`,
     ...(extras.length ? ["", ...extras] : []),
     ``,
-    `¿Me das precio y disponibilidad?`,
+    `¿Me das precio y disponibilidad? (entiendo que los precios son ${TAX_NOTE})`,
   ].join("\n");
   return whatsappUrl(message);
 }
@@ -317,7 +326,7 @@ export function bundleWhatsappUrl() {
     `¡Hola Omniclean! 👋`,
     ``,
     `Quiero pedir el *${bundle.name}* 🧼`,
-    `💲 Precio combo: $${bundle.price} (antes $${bundle.compareAtPrice})`,
+    `💲 Precio combo: $${bundle.price} ${TAX_NOTE} (antes $${bundle.compareAtPrice})`,
     ``,
     `Incluye:`,
     list,

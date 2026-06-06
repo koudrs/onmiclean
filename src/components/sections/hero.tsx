@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { WhatsappIcon } from "@/components/ui/brand-icons";
 import { whatsappUrl } from "@/lib/site";
-import { bundle } from "@/lib/products";
+import { bundle, TAX_NOTE } from "@/lib/products";
 
 // Variantes de entrada escalonada para el bloque de texto.
 const container = {
@@ -93,16 +93,21 @@ export function Hero() {
           </motion.p>
 
           {/* Precio destacado inline */}
-          <motion.div variants={item} className="flex flex-wrap items-end gap-3">
-            <span className="brand-gradient-text text-4xl font-extrabold leading-none sm:text-5xl">
-              ${bundle.price}
-            </span>
-            <span className="pb-1 text-lg text-muted-foreground line-through">
-              ${bundle.compareAtPrice}
-            </span>
-            <Badge variant="green" className="mb-1 shadow-sm">
-              Ahorra ${bundle.compareAtPrice - bundle.price}
-            </Badge>
+          <motion.div variants={item}>
+            <div className="flex flex-wrap items-end gap-3">
+              <span className="brand-gradient-text text-4xl font-extrabold leading-none sm:text-5xl">
+                ${bundle.price}
+              </span>
+              <span className="pb-1 text-lg text-muted-foreground line-through">
+                ${bundle.compareAtPrice}
+              </span>
+              <Badge variant="green" className="mb-1 shadow-sm">
+                Ahorra ${bundle.compareAtPrice - bundle.price}
+              </Badge>
+            </div>
+            <p className="mt-1.5 text-sm font-medium text-muted-foreground">
+              {TAX_NOTE}
+            </p>
           </motion.div>
 
           <motion.div variants={item} className="flex flex-col gap-3 sm:flex-row">

@@ -35,8 +35,10 @@ export default function TerminosPage() {
         </li>
         <li>
           Los precios mostrados están expresados en dólares estadounidenses
-          (USD) e incluyen el valor del producto. Pueden actualizarse sin previo
-          aviso.
+          (USD) y <strong>no incluyen el ITBMS</strong> (Impuesto sobre la
+          Transferencia de bienes Muebles y Servicios). A todos los precios se
+          les suma el ITBMS vigente del 7%. Los precios pueden actualizarse sin
+          previo aviso.
         </li>
         <li>
           Las promociones, como el <strong>Combo Omniclean</strong>, están

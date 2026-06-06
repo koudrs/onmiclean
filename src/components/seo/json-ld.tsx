@@ -40,6 +40,13 @@ const data: JsonLdGraph = {
         price: bundle.price,
         priceCurrency: bundle.currency,
         availability: "https://schema.org/InStock",
+        // El precio mostrado NO incluye ITBMS (7%); se suma al cobrar.
+        priceSpecification: {
+          "@type": "PriceSpecification",
+          price: bundle.price,
+          priceCurrency: bundle.currency,
+          valueAddedTaxIncluded: false,
+        },
         seller: {
           "@id": `${site.url}/#business`,
         },

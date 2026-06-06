@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/drawer";
 import { useMediaQuery } from "@/lib/use-media-query";
 import { cn } from "@/lib/utils";
-import { productWhatsappUrl, type Product } from "@/lib/products";
+import { productWhatsappUrl, TAX_NOTE, type Product } from "@/lib/products";
 
 // Clases de borde en hover según el acento del producto.
 const accentHoverBorder: Record<Product["accent"], string> = {
@@ -365,6 +365,10 @@ function ProductDetail({ product }: { product: Product }) {
             Pedir por WhatsApp
           </a>
         </Button>
+        {/* Nota fiscal: los precios no incluyen ITBMS */}
+        <p className="-mt-2 text-center text-xs text-muted-foreground">
+          Los precios no incluyen impuesto · {TAX_NOTE}
+        </p>
       </div>
     </>
   );
